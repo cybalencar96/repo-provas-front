@@ -42,6 +42,11 @@ const PageContainer = styled.div`
         display: flex;
         height: calc(100vh - 200px);
     }
+
+    .selected {
+        background-color: #174EA6!important;
+        color: white!important;
+    }
 `;
 
 const TypeList = styled.ul`
