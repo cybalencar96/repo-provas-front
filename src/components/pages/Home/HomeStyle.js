@@ -4,7 +4,7 @@ const HomeContainer = styled.div`
     width: 100vw;
     height: 100vh;
 
-    background-color: blue;
+    background-color: #292929;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
