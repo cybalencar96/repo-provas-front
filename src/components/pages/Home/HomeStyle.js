@@ -15,19 +15,21 @@ const RouteButton = styled.div`
     width: 500px;
     height: 500px;
     border-radius: 10px;
-    background-color: green;
+    background-color: #121212;
+    color: white;
 
     display: flex;
     justify-content: center;
     align-items: center;
 
-    font-size: 30px;
+    font-size: 40px;
 
-    transition: background-color 0.5s;
+    transition: background-color 0.3s;
 
     &:hover {
         cursor: pointer;
-        background-color: lightblue;
+        background-color: lightgray;
+        color: black;
     }
 `;
 

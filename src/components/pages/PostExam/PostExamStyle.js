@@ -15,13 +15,14 @@ const FormContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
     gap: 20px;
     padding: 20px 0;
 
-    background-color: green;
-    width: 500px;
-    height: 500px;
+    background-color: #121212;
+    width: 60vw;
+    max-width: 700px;
+    height: 80vh;
 
     & label {
         font-size: 30px;
@@ -34,12 +35,22 @@ const FormContainer = styled.form`
         font-size: 20px;
         padding-left: 20px;
         border-radius: 10px;
+        background-color: #303030;
+        color: white;
     }
 
     & button {
         width: 70%;
         height: 50px;
         font-size: 23px;
+        cursor: pointer;
+
+        transition: background-color 0.3s;
+        
+        &:hover {
+            background-color:#174EA6;
+            color: white;
+        }
     }
 `;
 

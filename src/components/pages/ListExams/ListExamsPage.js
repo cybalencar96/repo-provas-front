@@ -45,6 +45,10 @@ export default function ListExamsPage() {
         setSelectedIndex(idx)
     };
 
+    const goToPdfLink = (pdfLink) => () => {
+        window.open(pdfLink);
+    }
+
     if (loading) return <h1>Loading...</h1>
     return (
         <PageContainer>
@@ -75,7 +79,7 @@ export default function ListExamsPage() {
                 <ExamsList>
                     {
                         exams.length && exams.map(exam => (
-                            <LiElement>
+                            <LiElement onClick={goToPdfLink(exam.linkPdf)}>
                                 {`${exam.category} - ${exam.name} - `}
                                 {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
                             </LiElement>
