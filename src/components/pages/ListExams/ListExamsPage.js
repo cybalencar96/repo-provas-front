@@ -10,27 +10,27 @@ export default function ListExamsPage() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        backApi.getTeachers().then((teachers) => {
+        backApi.getTeachersWithExams().then((teachers) => {
             setlistType(teachers.data);
 
             if (teachers.data.length) {
                 setExams(teachers.data[0].exams);
             }
-            console.log(teachers.data)
+
             setLoading(false);
         });
     }, []);
 
     const handleListType = (option) => () => {
         if (listTypeSelected !== 'teacher' && option === 'teacher') {
-            backApi.getTeachers().then((teachers) => {
+            backApi.getTeachersWithExams().then((teachers) => {
                 setlistType(teachers.data);
                 setExams(teachers.data[0].exams);
             });
         }
 
         if (listTypeSelected !== 'subject' && option === 'subject') {
-            backApi.getSubjects().then((subjects) => {
+            backApi.getSubjectsWithExams().then((subjects) => {
                 setlistType(subjects.data);
                 setExams(subjects.data[0].exams);
             });
