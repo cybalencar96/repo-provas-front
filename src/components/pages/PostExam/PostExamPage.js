@@ -80,12 +80,13 @@ export default function PostExamPage() {
             linkPdf,
         })
         .then(() => navigate('/list-exams'))
-        .catch((err) => console.error(err.response))
+        .catch((err) => alert((err.response && err.response.data) ||'Algum erro ocorreu'))
     }
 
     if (loading) return <h1>Loading...</h1>;
     return (
         <PageContainer>
+            <p onClick={() => navigate('/')}>↩</p>
             <FormContainer onSubmit={postExam}>
                 <label>Preencha o form para registrar prova</label>
                 <input 

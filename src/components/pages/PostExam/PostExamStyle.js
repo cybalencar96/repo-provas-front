@@ -9,6 +9,16 @@ const PageContainer = styled.div`
     justify-content: space-evenly;
     align-items: center;
     gap: 30px;
+
+    & > p {
+        font-size: 70px;
+        color: whitesmoke;
+        cursor: pointer;
+
+        position: fixed;
+        top: 50px;
+        left: 50px;
+    }
 `;
 
 const FormContainer = styled.form`

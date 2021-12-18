@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PageContainer, TypeList, ExamsList, LiElement } from './ListExamsStyle';
 import * as backApi from '../../../services/backApi';
 
@@ -8,6 +9,7 @@ export default function ListExamsPage() {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         backApi.getTeachersWithExams().then((teachers) => {
@@ -53,6 +55,7 @@ export default function ListExamsPage() {
     return (
         <PageContainer>
             <div className="type-list-options">
+                <p onClick={() => navigate('/')}>↩</p>
                 <div 
                     onClick={handleListType('teacher')} 
                     className={listTypeSelected === 'teacher' ? 'selected' : ''}

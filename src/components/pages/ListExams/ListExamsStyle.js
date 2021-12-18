@@ -15,6 +15,12 @@ const PageContainer = styled.div`
         justify-content: space-evenly;
         align-items: center;
         background-color: #232323;  
+
+        & p {
+            font-size: 70px;
+            color: whitesmoke;
+            cursor: pointer;
+        }
     }
 
     .type-list-options div {
