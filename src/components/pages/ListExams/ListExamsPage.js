@@ -88,6 +88,7 @@ export default function ListExamsPage() {
                                 selectedSubject={selectedEntity}
                                 handleSubjectClick={handleEntityClick}
                                 period={period}
+                                key={period}
                             />
                         ))
                     }
