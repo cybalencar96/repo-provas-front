@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || 'http://localhost:4000';
+axios.defaults.baseURL = process.env.REACT_APP_BASE_URL || 'https://my-repo-provas.herokuapp.com/';
 
 function getTeachersWithExams() {
     return  axios.get('/teachers');
