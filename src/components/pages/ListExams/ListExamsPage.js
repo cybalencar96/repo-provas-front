@@ -42,14 +42,12 @@ export default function ListExamsPage() {
         if (listTypeSelected !== 'subject' && option === 'subject') {
             backApi.getSubjectsWithExams().then((subjects) => {
                 setlistType(subjects.data);
-
-                if (subjects.data.length) {
-                    setExams(subjects.data[0].exams);
-
-                }
-
                 const orderedSubjects = subjects.data.sort((subjectA, subjectB) => subjectA.period - subjectB.period);
-                setSelectedEntity(orderedSubjects[0] ? orderedSubjects[0].id : 0);
+
+                if (orderedSubjects.length) {
+                    setExams(orderedSubjects[0].exams);
+                    setSelectedEntity(orderedSubjects[0].id);
+                }
             });
         }
         
