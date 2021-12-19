@@ -53,6 +53,17 @@ const PageContainer = styled.div`
         background-color: #174EA6!important;
         color: white!important;
     }
+
+    .topic {
+        background-color: darkgrey;
+        height: 50px;
+
+        &:hover {
+            background-color: darkgrey;
+            color: white;
+            cursor: auto;
+        }
+    }
 `;
 
 const TypeList = styled.ul`
@@ -65,17 +76,6 @@ const ExamsList = styled.ul`
     width: 70%;
     overflow-y: scroll;
     border-right: 1px solid grey;
-
-    .topic {
-        background-color: darkgrey;
-        height: 50px;
-
-        &:hover {
-            background-color: darkgrey;
-            color: white;
-            cursor: auto;
-        }
-    }
 `;
 
 const LiElement = styled.li`

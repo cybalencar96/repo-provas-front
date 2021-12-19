@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { PageContainer, TypeList, ExamsList, LiElement } from './ListExamsStyle';
 import * as backApi from '../../../services/backApi';
 
+const categories = ['P1', 'P2', 'P3', '2ch', 'Outras'];
+const periods = [1,2,3,4,5,6,7,8,9,10];
+
 export default function ListExamsPage() {
     const [listType, setlistType] = useState([]);
     const [listTypeSelected, setListTypeSelected] = useState('teacher');
-    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [selectedEntity, setSelectedEntity] = useState(0);
     const [exams, setExams] = useState([]);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
@@ -14,7 +17,7 @@ export default function ListExamsPage() {
     useEffect(() => {
         backApi.getTeachersWithExams().then((teachers) => {
             setlistType(teachers.data);
-
+            setSelectedEntity(teachers.data[0].id);
             if (teachers.data.length) {
                 setExams(teachers.data[0].exams);
             }
@@ -28,6 +31,7 @@ export default function ListExamsPage() {
             backApi.getTeachersWithExams().then((teachers) => {
                 setlistType(teachers.data);
                 setExams(teachers.data[0].exams);
+                setSelectedEntity(teachers.data[0].id);
             });
         }
 
@@ -35,19 +39,21 @@ export default function ListExamsPage() {
             backApi.getSubjectsWithExams().then((subjects) => {
                 setlistType(subjects.data);
                 setExams(subjects.data[0].exams);
+
+                const orderedSubjects = subjects.data.sort((subjectA, subjectB) => subjectA.period - subjectB.period);
+                setSelectedEntity(orderedSubjects[0].id);
             });
         }
-
-        setSelectedIndex(0)
+        
         setListTypeSelected(option);
     }
 
-    const handleEntityClick = (idx) => () => {
-        setExams(listType[idx].exams);
-        setSelectedIndex(idx)
+    const handleEntityClick = (id) => () => {
+        const entity = listType.find(entity => entity.id === id);
+        setExams(entity.exams);
+        setSelectedEntity(id);
     };
 
-    
     if (loading) return <h1>Loading...</h1>
     return (
         <PageContainer>
@@ -66,53 +72,96 @@ export default function ListExamsPage() {
             <div className="content">
                 <TypeList>
                     {
-                        listType.map((result, idx) => (
-                            <LiElement 
-                                className={selectedIndex === idx && 'selected'}
-                                onClick={handleEntityClick(idx)}
-                            >
-                                {`${result.name} - ${result.exams.length} provas ${result.period ? ('- ' + result.period + '° Período') : ''}`}
-                            </LiElement>
+                        listTypeSelected === 'teacher' ?
+
+                        <TeacherTypeList 
+                            teacherList={listType} 
+                            selectedTeacher={selectedEntity}
+                            handleTeacherClick={handleEntityClick}
+                        />
+
+                        :
+
+                        periods.map(period => (
+                            <SubjectTypeListByPeriod 
+                                subjectList={listType} 
+                                selectedSubject={selectedEntity}
+                                handleSubjectClick={handleEntityClick}
+                                period={period}
+                            />
                         ))
                     }
                 </TypeList>
                 <ExamsList>
-                    <LiElement className='topic'>P1</LiElement>
-                    <ExamsFromTopic exams={exams} topic='P1' listTypeSelected={listTypeSelected} />
-
-                    <LiElement className='topic'>P2</LiElement>
-                    <ExamsFromTopic exams={exams} topic='P2' listTypeSelected={listTypeSelected} />
-
-                    <LiElement className='topic'>P3</LiElement>
-                    <ExamsFromTopic exams={exams} topic='P3' listTypeSelected={listTypeSelected} />
-
-                    <LiElement className='topic'>2ª chamada</LiElement>
-                    <ExamsFromTopic exams={exams} topic='2ch' listTypeSelected={listTypeSelected} />
-
-                    <LiElement className='topic'>Outras</LiElement>
-                    <ExamsFromTopic exams={exams} topic='Outras' listTypeSelected={listTypeSelected} />
+                    {
+                        categories.map(category => (
+                            <>
+                            <ExamsFromTopic exams={exams} category={category} listTypeSelected={listTypeSelected} />
+                            </>
+                        ))
+                    }
                 </ExamsList>
             </div>
         </PageContainer>
     )
 }
 
-function ExamsFromTopic({ topic, exams, listTypeSelected }) {
+function TeacherTypeList({teacherList, selectedTeacher, handleTeacherClick}) {
+    return (
+        teacherList.map((teacher) => (
+            <LiElement
+                key={teacher.id}
+                className={selectedTeacher === teacher.id && 'selected'}
+                onClick={handleTeacherClick(teacher.id)}
+            >
+                {`${teacher.name} - ${teacher.exams.length} provas ${teacher.period ? ('- ' + teacher.period + '° Período') : ''}`}
+            </LiElement>
+        ))
+    )
+}
+
+function SubjectTypeListByPeriod({subjectList, selectedSubject, handleSubjectClick, period}) {
+
+    const filteredSubjectList = subjectList && subjectList.filter(result => result.period === period)
+    
+    if (filteredSubjectList.length === 0) return <></>
+    return (
+        <>
+        <LiElement className='topic'>{period}° período</LiElement>
+        {
+            filteredSubjectList.map((subject) => (
+                <LiElement 
+                    key={subject.id}
+                    className={(selectedSubject === subject.id) && 'selected'}
+                    onClick={handleSubjectClick(subject.id)}
+                >
+                    {`${subject.name} - ${subject.exams.length} provas - ${period}° Período`}
+                </LiElement>
+            ))
+        }
+        </>
+    )
+}
+
+function ExamsFromTopic({ category, exams, listTypeSelected }) {
     const goToPdfLink = (pdfLink) => () => {
         window.open(pdfLink);
     }
 
+    const filteredExams = exams.length && exams.filter(exam => exam.category === category);
 
+    if (!filteredExams || filteredExams.length === 0)  return <></>
     return (
         <>
-        {
-            exams.length && exams.filter(exam => exam.category === topic).map(exam => (
-                <LiElement onClick={goToPdfLink(exam.linkPdf)}>
-                    {`${exam.name} - `}
-                    {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
-                </LiElement>
-            ))
-        }
+            <LiElement className='topic'>{category}</LiElement>
+            {
+                filteredExams.map(exam => (
+                    <LiElement onClick={goToPdfLink(exam.linkPdf)} key={exam.id}>
+                        {`${exam.name} - `}
+                        {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
+                    </LiElement>
+                ))
+            } 
         </>
     )
 }
