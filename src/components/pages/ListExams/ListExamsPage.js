@@ -17,8 +17,9 @@ export default function ListExamsPage() {
     useEffect(() => {
         backApi.getTeachersWithExams().then((teachers) => {
             setlistType(teachers.data);
-            setSelectedEntity(teachers.data[0].id);
+
             if (teachers.data.length) {
+                setSelectedEntity(teachers.data[0].id);
                 setExams(teachers.data[0].exams);
             }
 
@@ -30,18 +31,25 @@ export default function ListExamsPage() {
         if (listTypeSelected !== 'teacher' && option === 'teacher') {
             backApi.getTeachersWithExams().then((teachers) => {
                 setlistType(teachers.data);
-                setExams(teachers.data[0].exams);
-                setSelectedEntity(teachers.data[0].id);
+
+                if (teachers.data.length) {
+                    setExams(teachers.data[0].exams);
+                    setSelectedEntity(teachers.data[0].id);
+                }
             });
         }
 
         if (listTypeSelected !== 'subject' && option === 'subject') {
             backApi.getSubjectsWithExams().then((subjects) => {
                 setlistType(subjects.data);
-                setExams(subjects.data[0].exams);
+
+                if (subjects.data.length) {
+                    setExams(subjects.data[0].exams);
+
+                }
 
                 const orderedSubjects = subjects.data.sort((subjectA, subjectB) => subjectA.period - subjectB.period);
-                setSelectedEntity(orderedSubjects[0].id);
+                setSelectedEntity(orderedSubjects[0] ? orderedSubjects[0].id : 0);
             });
         }
         
