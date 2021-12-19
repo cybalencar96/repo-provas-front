@@ -47,10 +47,7 @@ export default function ListExamsPage() {
         setSelectedIndex(idx)
     };
 
-    const goToPdfLink = (pdfLink) => () => {
-        window.open(pdfLink);
-    }
-
+    
     if (loading) return <h1>Loading...</h1>
     return (
         <PageContainer>
@@ -80,16 +77,42 @@ export default function ListExamsPage() {
                     }
                 </TypeList>
                 <ExamsList>
-                    {
-                        exams.length && exams.map(exam => (
-                            <LiElement onClick={goToPdfLink(exam.linkPdf)}>
-                                {`${exam.category} - ${exam.name} - `}
-                                {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
-                            </LiElement>
-                        ))
-                    }
+                    <LiElement className='topic'>P1</LiElement>
+                    <ExamsFromTopic exams={exams} topic='P1' listTypeSelected={listTypeSelected} />
+
+                    <LiElement className='topic'>P2</LiElement>
+                    <ExamsFromTopic exams={exams} topic='P2' listTypeSelected={listTypeSelected} />
+
+                    <LiElement className='topic'>P3</LiElement>
+                    <ExamsFromTopic exams={exams} topic='P3' listTypeSelected={listTypeSelected} />
+
+                    <LiElement className='topic'>2ª chamada</LiElement>
+                    <ExamsFromTopic exams={exams} topic='2ch' listTypeSelected={listTypeSelected} />
+
+                    <LiElement className='topic'>Outras</LiElement>
+                    <ExamsFromTopic exams={exams} topic='Outras' listTypeSelected={listTypeSelected} />
                 </ExamsList>
             </div>
         </PageContainer>
+    )
+}
+
+function ExamsFromTopic({ topic, exams, listTypeSelected }) {
+    const goToPdfLink = (pdfLink) => () => {
+        window.open(pdfLink);
+    }
+
+
+    return (
+        <>
+        {
+            exams.length && exams.filter(exam => exam.category === topic).map(exam => (
+                <LiElement onClick={goToPdfLink(exam.linkPdf)}>
+                    {`${exam.name} - `}
+                    {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
+                </LiElement>
+            ))
+        }
+        </>
     )
 }
