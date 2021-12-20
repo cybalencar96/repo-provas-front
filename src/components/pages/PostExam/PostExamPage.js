@@ -3,9 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { PageContainer, FormContainer, DropContainer, FileContainer, Preview } from "./PostExamStyle";
 import * as backApi from '../../../services/backApi';
 import Dropzone from 'react-dropzone';
-import 'react-circular-progressbar/dist/styles.css';
-import { CircularProgressbar } from 'react-circular-progressbar';
-import { MdCheckCircle, MdError, MdLink } from 'react-icons/md'
+import { MdCheckCircle } from 'react-icons/md'
 import { v4 as uuid } from 'uuid';
 import filesize from 'filesize';
 
@@ -93,17 +91,8 @@ export default function PostExamPage() {
             category,
             subject,
             teacher,
-            linkPdf,
             uploadedFile,
         } = inputs;
-
-        const jsonObj = JSON.stringify({
-            name,
-            category,
-            subject,
-            teacher,
-            linkPdf,
-        })
 
         const formData = new FormData();
         
@@ -112,7 +101,6 @@ export default function PostExamPage() {
         formData.append('category', category);
         formData.append('subject', subject);
         formData.append('teacher', teacher);
-        formData.append('linkPdf', linkPdf);
         
         backApi.postExam(formData, inputs, setInputs)
 
@@ -172,14 +160,6 @@ export default function PostExamPage() {
                     }
                 </datalist>
 
-                <input 
-                    type='url' 
-                    placeholder='Link pdf' 
-                    onChange={handleInputChange('linkPdf')}
-                    value={inputs.linkPdf} 
-                    required
-                />
-
                 <Upload onUpload={handleUpload}/>
 
                 {
@@ -207,7 +187,7 @@ function Upload({ onUpload }) {
     }
 
     return (
-        <Dropzone accept='image/*' onDropAccepted={onUpload}>
+        <Dropzone accept='application/pdf' onDropAccepted={onUpload}>
             {
                 ({getRootProps, getInputProps, isDragActive, isDragReject}) => (
                     <DropContainer
@@ -229,43 +209,14 @@ function ExamFile ({ file, inputs, setInputs }) {
     return (
         <FileContainer>
         <div className='file-info'>
-            <Preview className='image' src={file.preview} />
+            <Preview className='image' src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAgNEns2cLswbw1K2Ho5WovTshIkvQ0gbnuQ&usqp=CAU'} />
             <div >
                 <strong>{file.name}</strong>
                 <span>{file.readableSize}<div onClick={() => setInputs({...inputs, uploadedFile: null})}>Excluir</div></span>
             </div>
         </div>
         <div>
-            {
-                !file.uploaded && !file.error && (
-                    <CircularProgressbar 
-                        styles={{
-                            root: { width: 24},
-                            path: { stroke: '#7159c1' }
-                        }}
-                        strokeWidth={10}
-                        percentage={file.progress}
-                    />
-                )
-            }
-            
-            {
-                file.url && 
-                <a href='/' target='_blank' rel='noopener noreferrer'>
-                    <MdLink style={{ marginRight: 8}} size={24} color="#222"/>
-                </a>
-
-            }
-
-            {
-                file.uploaded &&
-                <MdCheckCircle size={24} color="#78e5d5" /> 
-            }
-
-            {
-                file.error &&
-                <MdError size={24} color="#e57878" /> 
-            }
+            <MdCheckCircle size={40} color="#78e5d5" /> 
         </div>
         
         </FileContainer>
