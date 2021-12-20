@@ -1,70 +1,83 @@
-# Getting Started with Create React App
+<br />
+<p align="center">
+  <a href="/">
+    <img src="https://github.com/cybalencar96/repo-provas-front/blob/main/public/logo.svg?raw=true" alt="Logo" width="90px" height="auto">
+  </a>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3 align="center">RepoProvas</h3>
 
-## Available Scripts
+  <p align="center">
+    A repository to store old (<strong>but gold</strong>) school exams
+    <br />
+    <a href="https://github.com/cybalencar96/repo-provas-front"><strong>Explore the docs »</strong></a>
+    <br />
+    <a href="https://repo-provas-front-cybalencar96.vercel.app/">View Demo</a>
+    <br />
+  </p>
+</p>
 
-In the project directory, you can run:
+#
 
-### `npm start`
+### **About the project**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+<br />
+<p align="center">
+<img src="https://github.com/cybalencar96/repo-provas-front/blob/main/public/preview.gif?raw=true" width="600px">
+<p>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+You are an in progress graduation student. You're in the fifth period and you're disgusted with one thing: the teachers don't release the old exams for you to study. That's because they reuse the same proofs, slightly adapted, so they don't have to work to produce new proofs.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This might even be good for them, but the students end up not having material to train and feel safe for the tests.
 
-### `npm run build`
+However, as a solution solver, you decide to handle this problem: you want to make a platform for people to share (anonymously) the old and on going exams for posteriority.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+<br />
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### **Built with**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [React JS](https://reactjs.org/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Node JS](https://nodejs.org/en/)
+- [Styled-Components](https://styled-components.com/)
+- [AWS - S3 storage](https://aws.amazon.com/pt/s3/)
 
-### `npm run eject`
+ <br />
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## **Getting Started**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Want to simply give it a ride? Access demo by [clicking here](https://repo-provas-front-cybalencar96.vercel.app/)!
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- Want to run frontend and backend in local environment? Learn how in README of gratibox-back repository by [clicking here](https://github.com/cybalencar96/repo-provas-back)!
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Want to run frontend local not worrying with back? Keep reading then!
 
-## Learn More
+<br />
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### **Prerequisites**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- npm
 
-### Code Splitting
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### **Installation**
 
-### Analyzing the Bundle Size
+1. Clone repository
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+```sh
+git clone https://github.com/cybalencar96/repo-provas-front.git
+```
 
-### Making a Progressive Web App
+2. Install dependencies executing command in root
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```sh
+npm i
+```
 
-### Advanced Configuration
+<br />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### **How to run**
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```sh
+npm start
+```
