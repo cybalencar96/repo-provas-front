@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const PageContainer = styled.div`
     width: 100vw;
@@ -50,7 +50,7 @@ const FormContainer = styled.form`
     }
 
     & button {
-        width: 70%;
+        width: 80%;
         height: 50px;
         font-size: 23px;
         cursor: pointer;
@@ -64,7 +64,91 @@ const FormContainer = styled.form`
     }
 `;
 
+const dragActive = css`
+    border-color: #78e5d5;
+    color: green;
+`
+
+const dragReject = css`
+    border-color: #e57878;
+    color: red;
+`
+
+const DropContainer = styled.div.attrs({
+    className: "dropzone"
+})`
+    color: white;
+    border: 3px dashed #DDD;
+    border-radius: 4px;
+    cursor: pointer;
+
+    transition: height 0.2s ease;
+
+    ${props => props.isDragActive && dragActive};
+    ${props => props.isDragReject && dragReject};
+
+    
+    width: 80%;
+    height: 100px;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const FileContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+
+    .file-info {
+        display: flex;
+        align-items: center;
+        
+
+        strong {
+            display: block;
+            color: white;
+            font-weight: bold;
+        }
+
+        span {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+
+            display: flex;
+            justify-content: space-between;
+
+            div {
+                border: 0;
+                background: transparent;
+                color: #e57878;
+                margin-left: 5px;
+                cursor: pointer;
+                font-size: 14px;
+            }
+        }
+    }
+`
+
+const Preview = styled.div`
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    background-image: url(${props => props.src});
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    margin-right: 10px;
+`
+
+
 export {
     PageContainer,
     FormContainer,
+    DropContainer,
+    FileContainer,
+    Preview,
 }

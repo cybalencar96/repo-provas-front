@@ -49,8 +49,15 @@ function getSubjects(filters = {}) {
     return axios.get(`/subjects/where?${query}`);
 }
 
-function postExam(body) {
-    return axios.post('/exams', body);
+function postExam(body, inputs, setInputs) {
+    return axios.post('/exams', body, {
+        onUploadProgress: e => {
+            const progress = parseInt(Math.round(e.loaded * 100) / e.total);
+
+            inputs.uploadedFile.progress = progress;
+            setInputs({ ...inputs })
+        }
+    });
 }
 export {
     getTeachersWithExams,

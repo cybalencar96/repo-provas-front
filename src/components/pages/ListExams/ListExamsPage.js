@@ -5,6 +5,7 @@ import * as backApi from '../../../services/backApi';
 
 const categories = ['P1', 'P2', 'P3', '2ch', 'Outras'];
 const periods = [1,2,3,4,5,6,7,8,9,10];
+const fallbackUrl = 'https://www.google.com'
 
 export default function ListExamsPage() {
     const [listType, setlistType] = useState([]);
@@ -163,7 +164,7 @@ function ExamsFromTopic({ category, exams, listTypeSelected }) {
             <LiElement className='topic'>{category}</LiElement>
             {
                 filteredExams.map(exam => (
-                    <LiElement onClick={goToPdfLink(exam.linkPdf)} key={exam.id}>
+                    <LiElement onClick={goToPdfLink(exam.file ? exam.file.url : fallbackUrl)} key={exam.id}>
                         {`${exam.name} - `}
                         {listTypeSelected === 'subject' ? exam.class.teacher.name : exam.class.subject.name}
                     </LiElement>
